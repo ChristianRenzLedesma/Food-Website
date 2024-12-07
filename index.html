@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Find Meal For Your Ingredients</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+    integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+    crossorigin="anonymous" />
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Caveat+Brush&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+    rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <link rel="stylesheet" href="Home.css">
+  <style>
+    .recipeModal {
+      display: none;
+      position: fixed;
+      z-index: 1;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+    }
+
+    @keyframes slideInLeft {
+      from {
+        transform: translateX(-100%);
+        opacity: 0;
+      }
+
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+
+    /* .food-col {
+      position: relative;
+      display: inline-block;
+      margin: 20px;
+      border-radius: 10px;
+      overflow: hidden;
+      transition: transform .5s ease-in-out;
+      background: #fff; 
+    }
+
+    .food-col img {
+      width: 200px;
+      transition: transform 2s ease-in-out;
+    }
+    */
+
+    .modal-content {
+      display: flex;
+      gap: 1rem;
+      background-color: #fff;
+      margin: 20% auto;
+      padding: 20px;
+      text-align: left;
+      border: 1px solid #ffdab3;
+      width: 40%;
+      border-radius: 5px;
+      color: #563c1f;
+      animation: slideInLeft .5s ease-in forwards;
+    }
+
+    .image-recipe img {
+      width: 200px;
+    }
+
+    .image-recipe2 img {
+      width: 200px;
+    }
+
+    .close {
+      color: #000;
+      float: right;
+      font-size: 28px;
+      font-weight: 800;
+    }
+
+    .close:hover,
+    .close:focus {
+      color: black;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    #DLbtn {
+      background: #ffdab3;
+      color: #563c1f;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: .3s;
+    }
+
+    .recipeModal2 {
+      display: none;
+      position: fixed;
+      z-index: 1;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+    }
+
+    .modal-content2 {
+      display: flex;
+      gap: 1rem;
+      background-color: #fff;
+      margin: 20% auto;
+      padding: 20px;
+      text-align: left;
+      border: 1px solid #ffdab3;
+      width: 40%;
+      border-radius: 5px;
+      color: #563c1f;
+      animation: slideInLeft .5s ease-in forwards;
+    }
+
+    .close2 {
+      color: #fff;
+      float: right;
+      font-size: 28px;
+      font-weight: 800;
+    }
+
+    .close2:hover,
+    .close2:focus {
+      color: black;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    #DLbtn2 {
+      background: #ffdab3;
+      color: #563c1f;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: .3s;
+    }
+
+    .recipeModal3 {
+      display: none;
+      position: fixed;
+      z-index: 1;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+    }
+
+    .modal-content3 {
+      background-color: #563c1f;
+      margin: 20% auto;
+      padding: 20px;
+      border: 1px solid #ffdab3;
+      width: 40%;
+      border-radius: 5px;
+      color: #fff;
+    }
+
+    .close3 {
+      color: #fff;
+      float: right;
+      font-size: 28px;
+      font-weight: 800;
+    }
+
+    .close3:hover,
+    .close3:focus {
+      color: black;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    #DLbtn3 {
+      background: #ffdab3;
+      color: #563c1f;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: .3s;
+    }
+
+    footer{
+      background-color: #f8f9fa;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .copyright{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .socmed{
+      margin-bottom: 10px;
+    }
+
+    .socmed a{
+      margin: 0 10px;
+      text-decoration: none;
+      color: #333;
+    }
+
+    .info{
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    .logo-comp{
+      flex: 1 1 200px;
+      text-align: center;
+      margin: 10px;
+    }
+
+    .logo-image{
+      max-width: 100%;
+      height: auto;
+    }
+
+    .logo-comp2{
+      flex: 1 1 150px;
+      text-align: center;
+      margin: 10px;
+    }
+
+    h2{
+      margin: 10px 0;
+    }
+
+    hr{
+      width: 100%;
+      margin: 20px 0;
+    }
+
+    @media (max-width: 600px) {
+      .info{
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="homepage">
+    <nav>
+      <div class="links">
+        <div class="logo">
+          <img src="logo.jpg">
+        </div>
+
+        <div class="hamburger" id="hamburger">
+          <svg class="bookmenu" xmlns="http://www.w3.org/2000/svg" height="30px" viewBox="0 -960 960 960" width="30px"
+            fill="#5f6368">
+            <path
+              d="M560-564v-68q33-14 67.5-21t72.5-7q26 0 51 4t49 10v64q-24-9-48.5-13.5T700-600q-38 0-73 9.5T560-564Zm0 220v-68q33-14 67.5-21t72.5-7q26 0 51 4t49 10v64q-24-9-48.5-13.5T700-380q-38 0-73 9t-67 27Zm0-110v-68q33-14 67.5-21t72.5-7q26 0 51 4t49 10v64q-24-9-48.5-13.5T700-490q-38 0-73 9.5T560-454ZM260-320q47 0 91.5 10.5T440-278v-394q-41-24-87-36t-93-12q-36 0-71.5 7T120-692v396q35-12 69.5-18t70.5-6Zm260 42q44-21 88.5-31.5T700-320q36 0 70.5 6t69.5 18v-396q-33-14-68.5-21t-71.5-7q-47 0-93 12t-87 36v394Zm-40 118q-48-38-104-59t-116-21q-42 0-82.5 11T100-198q-21 11-40.5-1T40-234v-482q0-11 5.5-21T62-752q46-24 96-36t102-12q58 0 113.5 15T480-740q51-30 106.5-45T700-800q52 0 102 12t96 36q11 5 16.5 15t5.5 21v482q0 23-19.5 35t-40.5 1q-37-20-77.5-31T700-240q-60 0-116 21t-104 59ZM280-494Z" />
+          </svg>
+
+          <!--<div></div>
+          <div></div>
+          <div></div>-->
+        </div>
+
+        <ul id="menu">
+          <li><a href="#" class="active-home">Home</a></li>
+          <div class="border"></div>
+          <li><a href="cuisinetypes.html">All Pinoy Foods</a></li>
+          <div class="border"></div>
+          <li><a href="mybox.html">My Recipe Box</a></li>
+          <div class="border"></div>
+          <li><a href="#">About</a></li>
+        </ul>
+
+      </div>
+
+      <div class="sidebar" id="sidebar">
+        <svg class="close" id="close" xmlns="http://www.w3.org/2000/svg" height="30px" viewBox="0 -960 960 960"
+          width="30px" fill="#d">
+          <path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z" />
+        </svg>
+        <ul>
+          <li><a href="#" class="active-home">Home</a></li>
+          <li><a href="cuisinetypes.html">All Pinoy Foods</a></li>
+          <li><a href="#">My Recipe Box</a></li>
+          <li><a href="#">About</a></li>
+        </ul>
+
+      </div>
+
+    </nav>
+  </div>
+
+  <div class="container">
+    <div class="meal-wrapper">
+      <div class="meal-search">
+        <h2 class="title">Recipe</h2>
+
+
+        <div class="meal-search-box">
+          <input type="text" class="search-control" placeholder="Enter an ingredient" id="search-input">
+          <button type="submit" class="search-btn btn" id="search-btn">
+            <i class="fas fa-search"></i>
+          </button>
+
+          <ul id="search-results"></ul>
+
+          <!-- Container for images -->
+          <div id="dish-images"></div>
+
+          <p id="instruction"></p>
+        </div>
+      </div>
+
+      <!-- <div class="image-ito">
+        <img src="Lines.png">
+      </div> -->
+
+
+
+      <div class="row">
+        <div class="food-col">
+          <img src="adobo.jpg" class="Breakfast">
+          <div class="layer">
+            <h3 class="breakfast">Chicken Adobo</h3>
+            <button id="openmodal" style="cursor: pointer;">Open Recipe</button>
+          </div>
+        </div>
+        <div class="food-col">
+          <img src="Kare-Kare-Recipe.jpg" class="Lunch">
+          <div class="layer">
+            <h3 class="lunch">Kare-Kare</h3>
+            <button id="openmodal2" style="cursor: pointer;">Open Recipe</button>
+          </div>
+        </div>
+        <div class="food-col">
+          <img src="sinigang.jpg" class="Dinner">
+          <div class="layer">
+            <h3 class="dinner">Pork Sinigang</h3>
+            <button id="openmodal3" style="cursor: pointer;">Open Recipe</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="recipeModal" id="modal">
+        <div class="modal-content">
+          <div class="image-recipe">
+            <img src="adobo.jpg" class="images-rec">
+          </div>
+          <div class="content-modal">
+            <span class="close" id="close">&times;</span>
+            <h2>Chicken Adobo</h2>
+            <h2>Instructions</h2>
+            <p>
+              <li><b style="font-weight: 1000;">Marinate:</b> Combine meat with soy sauce, vinegar, garlic, and spices.
+                Marinate for at least 30 minutes.</li>
+              <li><b style="font-weight: 1000;">Cook:</b> In a pot, add marinated meat and marinade. &nbsp; Simmer until
+                meat is tender.</li>
+              <li><b style="font-weight: 1000;">Serve:</b> Enjoy with rice</li>
+            </p>
+            <h2>Recipe</h2>
+            <p>
+
+              2 tablespoons vegetable oil <br>
+
+              1 (3 pound) chicken, cut into pieces <br>
+
+              1 large onion, quartered and sliced <br>
+
+              2 tablespoons minced garlic <br>
+
+              ⅔ cup low sodium soy sauce <br>
+
+              ⅓ cup white vinegar <br>
+
+              1 tablespoon garlic powder <br>
+
+              2 teaspoons black pepper <br>
+
+              1 bay leaf <br>
+            </p>
+            <button id="DLbtn">Download recipe</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="recipeModal2" id="modal2">
+        <div class="modal-content2">
+          <div class="image-recipe2">
+            <img src="Kare-Kare-Recipe.jpg" class="images-recipe2">
+          </div>
+          <div class="content-modal">
+            <span class="close2" id="close2">&times;</span>
+            <h2>Kare Kare</h2>
+            <h2>Instructions</h2>
+            <p>
+              <li><b style="font"></b></li>
+            </p>
+            <h2>Recipe</h2>
+            <p>3 lbs oxtail cut in 2 inch slices you an also use tripe or beef slices <br>
+              1 piece small banana flower bud sliced <br>
+              1 bundle pechay or bok choy <br>
+              1 bundle string beans cut into 2 inch slices <br>
+              4 pieces eggplants sliced <br>
+              1 cup ground peanuts <br>
+              1/2 cup peanut butter <br>
+              1/2 cup shrimp paste <br>
+              34 Ounces water about 1 Liter <br>
+              1/2 cup annatto seeds soaked in a cup of water <br>
+              1/2 cup toasted ground rice <br>
+              1 tbsp garlic minced <br>
+              1 piece onion chopped <br>
+              salt and pepper</p>
+            <button id="DLbtn2">Download recipe</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="recipeModal3" id="modal3">
+        <div class="modal-content3">
+          <div class="image-recipe3">
+            <img src="sinigang.jpg" class="images-recipes3">
+          </div>
+          <div class="content-modal3">
+            <span class="close3" id="close3">&times;</span>
+            <h2>Pork Sinigang</h2>
+            <h2>Instructions</h2>
+            <p>Sinigang na Baboy is a sour soup with pork <br> ribs, vegetables, and tamarind-flavored broth. It's
+              hearty,
+              tasty, and perfect for cold weather.</p>
+            <h2>Recipe</h2>
+            <p> 2 lbs. pork belly sliced into cubes
+              2 to 3 cups kangkong leaves
+              3 pieces long green chili pepper siling pansigang
+              2 pieces tomato quartered
+              1 cup sliced daikon radish labanos
+              10 to 12 pieces snake beans cut in 2 inch length pieces
+              1 piece onion quartered
+              15 pieces okra
+              2 pieces taro peeled and cut in half (gabi)
+              8 cups water
+              2 packs Knorr Sinigang sa Sampaloc Mix Original (20 gram pack)
+              3 tablespoons fish sauce patis
+              ¼ teaspoon ground black pepper</p>
+            <button id="DLbtn3">Download recipe</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="meal-result">
+        <h2 class="title">Your Search Results:</h2>
+        <div id="meal">
+
+          <!-- <div class = "meal-item">
+            <div class = "meal-img">
+              <img src = "food.jpg" alt = "food">
+            </div>
+            <div class = "meal-name">
+              <h3>Potato Chips</h3>
+              <a href = "#" class="recipe-btn" id="recipe-btn">Get Recipe</a>
+            </div>
+          </div> -->
+          <!-- end of meal item -->
+        </div>
+      </div>
+
+      <div class="meal-details">
+        <!-- recipe close btn -->
+        <button type="button" class="btn recipe-close-btn" id="recipe-close-btn">
+          <i class="fas fa-times"></i>
+        </button>
+
+
+
+        <!-- meal content -->
+        <div class="meal-details-content">
+          <!-- <h2 class = "recipe-title">Meals Name Here</h2>
+          <p class = "recipe-category">Category Name</p>
+          <div class = "recipe-instruct">
+            <h3>Instructions:</h3>
+            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quo blanditiis quis accusantium natus! Porro, reiciendis maiores molestiae distinctio veniam ratione ex provident ipsa, soluta suscipit quam eos velit autem iste!</p>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet aliquam voluptatibus ad obcaecati magnam, esse numquam nisi ut adipisci in?</p>
+          </div>
+          <div class = "recipe-meal-img">
+            <img src = "food.jpg" alt = "">
+          </div>
+          <div class = "recipe-link">
+            <a href = "#" target = "_blank">Watch Video</a>
+          </div> -->
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer>
+    <div class="copyright">
+      <div class="socmed">
+        <a href="https://web.facebook.com/profile.php?id=61567968419335"><i class="ri-facebook-circle-fill"></i></a>
+        <a href=""><i class="ri-instagram-line"></i></a>
+        <a href=""><i class="ri-twitter-x-line"></i></a>
+      </div>
+      <h2>&copy;Yukihira all rights reserved 2024</h2>
+
+      <hr>
+      <div class="info">
+        <div class="logo-comp">
+          <img src="logo.jpg" class="logo-image">
+          <p>"Cook Share, Savor Together"</p>
+        </div>
+
+        <div class="logo-comp2">
+          <p>Christian Renz Ledesma.</p>
+          <p>Jodi Valeroso.</p>
+          <p>Jefferson Casino.</p>
+          <p>Harrold Barles.</p>
+        </div>
+
+        <div class="logo-comp2">
+          <p></p>
+          <p>Lorem ipsum dolor sit amet.</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    // Download the recipe
+    document.getElementById('DLbtn').addEventListener('click', function () {
+      const { jsPDF } = window.jspdf;
+
+      const doc = new jsPDF();
+      
+      doc.setFontSize(22);
+      doc.text('Chicken Adobo', 20, 20);
+
+      doc.setFontSize(11);
+      doc.text('Instructions: ', 20, 40);
+      const instructions = [
+        "1. Marinate: Combine meat with soy sauce, vinegar, garlic, and spices. Marinate for at least 30 minutes.",
+        "2. Cook: In a pot, add marinated meat and marinade.   Simmer until meat is tender.",
+        "3. Serve: Serve with steamed rice."
+      ];
+
+      for (let i = 0; i < instructions.length; i++) {
+        doc.text(instructions[i], 20, 50 + (i * 10));
+      }
+
+      doc.setFontSize(13);
+      doc.text('Recipe: ', 20, 80);
+
+      const ingredients = [
+        "2 tablespoons vegetable oil",
+        "1 (3 pound) chicken, cut into pieces",
+        "1 large onion, quartered and sliced",
+        "2 tablespoons minced garlic",
+        "2/3 cup low sodium soy sauce",
+        "1/3 cup white vinegar",
+        "1 tablespoon garlic powder",
+        "2 teaspoons black pepper",
+        "1 bay leaf"
+      ];
+
+      for(let j = 0; j < ingredients.length; j++){
+        doc.text(ingredients[j], 20, 90 + (j * 10));
+      }
+
+      const img = new Image();
+      img.src = 'adobo.jpg';
+      img.onload = function(){
+        const imgWidth = 100;
+        const imgHeight = (img.height * imgWidth) / img.width;
+        const xPosition = 50;
+        const yPosition = 175;
+        doc.addImage(img, 'JPEG', xPosition, yPosition, imgWidth, imgHeight);
+        doc.save('Chicken_Adobo_Recipe.pdf');
+      }
+    });
+
+
+    // function to the modal
+    const modal1 = document.getElementById("modal");
+    const openModal1 = document.getElementById("openmodal");
+    const closeBtn1 = document.getElementById("close");
+
+    openModal1.onclick = function () {
+      modal1.style.display = "block";
+    }
+
+    closeBtn1.addEventListener("click", function () {
+      modal1.style.display = "none";
+    });
+
+    window.onclick = function (event) {
+      if (event.target == modal) {
+        modal1.style.display = "none";
+      }
+    }
+
+    const modal2 = document.getElementById("modal2");
+    const openModal2 = document.getElementById("openmodal2");
+    const closeBtn2 = document.getElementById("close2");
+
+    openModal2.onclick = function () {
+      modal2.style.display = "block";
+    }
+
+    closeBtn2.onclick = function () {
+      modal2.style.display = "none";
+    }
+
+    window.onclick = function (event) {
+      if (event.target == modal) {
+        modal2.style.display = "none";
+      }
+    }
+
+    const modal3 = document.getElementById("modal3");
+    const openModal3 = document.getElementById("openmodal3");
+    const closeBtn3 = document.getElementById("close3");
+
+    openModal3.onclick = function () {
+      modal3.style.display = "block";
+    }
+
+    closeBtn3.onclick = function () {
+      modal3.style.display = "none";
+    }
+
+    window.onclick = function (event) {
+      if (event.target == modal) {
+        modal3.style.display = "none";
+      }
+    }
+  </script>
+</body>
+
+</html>

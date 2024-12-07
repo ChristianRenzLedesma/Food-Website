@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Find Meal For Your Ingredients</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+    integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+    crossorigin="anonymous" />
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Caveat+Brush&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <div class="homepage">
+
+
+    <nav>
+      <!-- <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368">
+        <path
+          d="M120-240v-80h520v80H120Zm664-40L584-480l200-200 56 56-144 144 144 144-56 56ZM120-440v-80h400v80H120Zm0-200v-80h520v80H120Z" />
+      </svg> -->
+      <div class="links">
+        <div class="logo">
+          <img src="logo.jpg">
+        </div>
+        <div class="hamburger" id="hamburger">
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+
+        <ul id="menu">
+          <li><a href="index.html">Home</a></li>
+          <div class="border"></div>
+          <li><a href="cuisinetypes.html" class="active-home">All Pinoy Foods</a></li>
+          <div class="border"></div>
+          <li><a href="mybox.html">My Recipe Box</a></li>
+          <div class="border"></div>
+          <li><a href="#">About</a></li>
+          <div class="border"></div>
+        </ul>
+
+      </div>
+
+      <div class="sidebar" id="sidebar">
+        <svg class="close" id="close" xmlns="http://www.w3.org/2000/svg" height="30px" viewBox="0 -960 960 960"
+          width="30px" fill="#d">
+          <path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z" />
+        </svg>
+        <ul>
+          <li><a href="index.html" class="active-home">Home</a></li>
+          <li><a href="cuisinetypes.html">All Pinoy Foods</a></li>
+          <li><a href="mybox.html">My Recipe Box</a></li>
+          <li><a href="#">About</a></li>
+        </ul>
+
+      </div>
+
+    </nav>
+    </header>
+  </div>
+
+  <div class="container">
+    <div class="meal-wrapper">
+      <div class="meal-search">
+        <h2 class="title">Recipe</h2>
+
+
+        <div class="meal-search-box">
+          <input type="text" class="search-control" placeholder="Enter an ingredient" id="search-input">
+          <button type="submit" class="search-btn btn" id="search-btn">
+            <i class="fas fa-search"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="meal-result">
+        <h2 class="title">Your Search Results:</h2>
+        <div id="meal">
+          
+          <!-- <div class = "meal-item">
+            <div class = "meal-img">
+              <img src = "food.jpg" alt = "food">
+            </div>
+            <div class = "meal-name">
+              <h3>Potato Chips</h3>
+              <a href = "#" class="recipe-btn" id="recipe-btn">Get Recipe</a>
+            </div>
+          </div> -->
+          <!-- end of meal item -->
+        </div>
+      </div>
+
+      <div class="meal-details">
+        <!-- recipe close btn -->
+        <button type="button" class="btn recipe-close-btn" id="recipe-close-btn">
+          <i class="fas fa-times"></i>
+        </button>
+
+        
+
+        <!-- meal content -->
+        <div class="meal-details-content">
+          <!-- <h2 class = "recipe-title">Meals Name Here</h2>
+          <p class = "recipe-category">Category Name</p>
+          <div class = "recipe-instruct">
+            <h3>Instructions:</h3>
+            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quo blanditiis quis accusantium natus! Porro, reiciendis maiores molestiae distinctio veniam ratione ex provident ipsa, soluta suscipit quam eos velit autem iste!</p>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet aliquam voluptatibus ad obcaecati magnam, esse numquam nisi ut adipisci in?</p>
+          </div>
+          <div class = "recipe-meal-img">
+            <img src = "food.jpg" alt = "">
+          </div>
+          <div class = "recipe-link">
+            <a href = "#" target = "_blank">Watch Video</a>
+          </div> -->
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer>
+    <div class="copyright">
+      <div class="socmed">
+        <a href="https://web.facebook.com/profile.php?id=61567968419335"><i class="ri-facebook-circle-fill"></i></a>
+        <a href=""><i class="ri-instagram-line"></i></a>
+        <a href=""><i class="ri-twitter-x-line"></i></a>
+      </div>
+      <h2>&copy;Yukihira all rights reserved 2024</h2>
+
+      <hr>
+      <div class="info">
+        <div class="logo-comp">
+          <img src="logo.jpg" class="logo-image">
+          <p>"Cook Share, Savor Together"</p>
+        </div>
+
+        <div class="logo-comp2">
+          <p>Christian Renz Ladesma.</p>
+          <p>Jodi Valeroso.</p>
+          <p>Jefferson Casino.</p>
+          <p>Harrold Barles.</p>
+        </div>
+
+        <div class="logo-comp2">
+          <p>Lorem ipsum dolor sit amet.</p>
+          <p>Lorem ipsum dolor sit amet.</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    const Breakfast = document.getElementById('BreakFast');
+    const Lunch = document.getElementById('Lunch');
+    const Dinner = document.getElementById('Dinner');
+
+    Breakfast.addEventListener('click', function(){
+      window.location.href = "break.html";
+    });
+
+    Lunch.addEventListener('click', function(){
+      window.location.href = "lunch.html";
+    });
+
+    Lunch.addEventListener('click', function(){
+      window.location.href = "dinner.html";
+    });
+    
+  </script>
+</body>
+
+</html>

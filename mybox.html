@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Find Meal For Your Ingredients</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+    integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+    crossorigin="anonymous" />
+  <link href="https://fonts.googleapis.com/css2?family=Caveat+Brush&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css">
+  <style>
+    * {
+      margin: 0;
+      position: relative;
+      left: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #ffdab3;
+      /* Light background color */
+      color: #563c1f;
+      /* Dark text color */
+      margin: 0;
+      padding: 20px;
+    }
+
+    .form {
+      background-color: #563c1f;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      max-width: 800px;
+      margin: 200px auto;
+      border-left: 5px solid #563c1f;
+      /* Accent border */
+    }
+
+    .form label {
+      font-weight: bold;
+      margin-bottom: 5px;
+      display: inline-block;
+      color: #ffdab3;
+      /* Dark label color */
+    }
+
+    .form input[type="text"],
+    .form textarea,
+    .form select,
+    .form input[type="file"] {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0 20px;
+      border: 1px solid #563c1f;
+      border-radius: 5px;
+      background-color: #ffdab3;
+      font-size: 14px;
+      color: #563c1f;
+    }
+
+    .form button {
+      background-color: #563c1f;
+      color: #ffffff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .form button:hover {
+      background-color: #402a16;
+      /* Slightly darker on hover */
+    }
+
+    .socmed {
+      margin-bottom: 20px;
+    }
+
+    footer {
+      padding: 180px;
+    }
+
+    #profilePreview {
+      border-radius: 8px;
+      margin-top: 10px;
+    }
+
+    .table_component {
+      margin-top: 20px;
+      background-color: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      overflow-x: auto;
+      border-left: 5px solid #563c1f;
+      /* Accent border */
+    }
+
+    .table_component table {
+      width: 100%;
+      border-collapse: collapse;
+      border: none;
+    }
+
+    .table_component th,
+    .table_component td {
+      text-align: center;
+      padding: 15px;
+      font-size: 14px;
+    }
+
+    .table_component th {
+      background-color: #563c1f;
+      color: #ffffff;
+      font-weight: bold;
+    }
+
+    .table_component td {
+      background-color: #ffdab3;
+      color: #563c1f;
+    }
+
+    .table_component tr:nth-child(even) td {
+      background-color: #f7cfa1;
+      /* Slightly darker shade for alternating rows */
+    }
+
+    .table_component th:first-child,
+    .table_component td:first-child {
+      border-radius: 8px 0 0 8px;
+    }
+
+    .table_component th:last-child,
+    .table_component td:last-child {
+      border-radius: 0 8px 8px 0;
+    }
+
+    .table_component td img {
+      border-radius: 5px;
+      width: 50px;
+      height: 50px;
+      object-fit: cover;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="homepage">
+    <nav>
+
+      <div class="links">
+        <div class="logo">
+          <img src="logo.jpg">
+        </div>
+        <div class="hamburger" id="hamburger">
+          <svg class="bookmenu" xmlns="http://www.w3.org/2000/svg" height="30px" viewBox="0 -960 960 960" width="30px"
+            fill="#5f6368">
+            <path
+              d="M560-564v-68q33-14 67.5-21t72.5-7q26 0 51 4t49 10v64q-24-9-48.5-13.5T700-600q-38 0-73 9.5T560-564Zm0 220v-68q33-14 67.5-21t72.5-7q26 0 51 4t49 10v64q-24-9-48.5-13.5T700-380q-38 0-73 9t-67 27Zm0-110v-68q33-14 67.5-21t72.5-7q26 0 51 4t49 10v64q-24-9-48.5-13.5T700-490q-38 0-73 9.5T560-454ZM260-320q47 0 91.5 10.5T440-278v-394q-41-24-87-36t-93-12q-36 0-71.5 7T120-692v396q35-12 69.5-18t70.5-6Zm260 42q44-21 88.5-31.5T700-320q36 0 70.5 6t69.5 18v-396q-33-14-68.5-21t-71.5-7q-47 0-93 12t-87 36v394Zm-40 118q-48-38-104-59t-116-21q-42 0-82.5 11T100-198q-21 11-40.5-1T40-234v-482q0-11 5.5-21T62-752q46-24 96-36t102-12q58 0 113.5 15T480-740q51-30 106.5-45T700-800q52 0 102 12t96 36q11 5 16.5 15t5.5 21v482q0 23-19.5 35t-40.5 1q-37-20-77.5-31T700-240q-60 0-116 21t-104 59ZM280-494Z" />
+          </svg>
+
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+
+        <ul id="menu">
+          <li><a href="index.html">Home</a></li>
+          <div class="border"></div>
+          <li><a href="cuisinetypes.html">All Pinoy Foods</a></li>
+          <div class="border"></div>
+          <li><a href="mybox.html" class="active-home">My Recipe Box</a></li>
+          <div class="border"></div>
+          <li><a href="#">About</a></li>
+          <div class="border"></div>
+        </ul>
+
+      </div>
+
+      <div class="sidebar" id="sidebar">
+        <svg class="close" id="close" xmlns="http://www.w3.org/2000/svg" height="30px" viewBox="0 -960 960 960"
+          width="30px" fill="#d">
+          <path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z" />
+        </svg>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="cuisinetypes.html">All Pinoy Foods</a></li>
+          <li><a href="mybox.html" class="active-home">My Recipe Box</a></li>
+          <li><a href="#">About</a></li>
+        </ul>
+
+      </div>
+    </nav>
+    </header>
+  </div>
+
+
+
+  <div class="form">
+    <label for="">Food Name</label><br><br>
+    <input type="text" name="pName" id="pName" placeholder="Enter Name..."><br>
+    <label for="">Instruction The Food</label><br><br>
+    <textarea name="Instructions" id="Instructions"></textarea><br>
+    <label for="">Image of Food</label><br><br>
+    <input type="file" id="profileImage" />
+    <img id="profilePreview" src="" alt="Image Preview" style="width: 100px; height: 100px; object-fit: cover;" /><br>
+    <button id="submit">Upload</button><br><br>
+    <button id="save" style="display: none;">Save Edit</button>
+  </div>
+  </div>
+
+  <footer>
+    <div class="copyright">
+      <div class="socmed">
+        <a href="https://web.facebook.com/profile.php?id=61567968419335"><i class="ri-facebook-circle-fill"></i></a>
+        <a href=""><i class="ri-instagram-line"></i></a>
+        <a href=""><i class="ri-twitter-x-line"></i></a>
+      </div>
+      <h2>&copy;Yukihira all rights reserved 2024</h2>
+
+      <hr>
+      <div class="info">
+        <div class="logo-comp">
+          <img src="logo.jpg" class="logo-image">
+          <p>"Cook Share, Savor Together"</p>
+        </div>
+
+        <div class="logo-comp2">
+          <p>Christian Renz Ladesma.</p>
+          <p>Jodi Valeroso.</p>
+          <p>Jefferson Casino.</p>
+          <p>Harrold Barles.</p>
+        </div>
+
+        <div class="logo-comp2">
+          <p>Lorem ipsum dolor sit amet.</p>
+          <p>Lorem ipsum dolor sit amet.</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+
+
+  <script>
+    const FoodName = document.getElementById('pName');
+    const Instructions = document.getElementById('Instructions');
+    const Upload = document.getElementById('submit');
+    const foodTable = document.getElementById('foodTable');
+    const profileImage = document.getElementById('profileImage');
+    const profilePreview = document.getElementById('profilePreview');
+    const edit = document.getElementById('save');
+
+    let foods = [];
+    let editingIndex = -1; 
+
+    document.addEventListener('DOMContentLoaded', function () {
+      const storedData = localStorage.getItem('foods');
+      foods = JSON.parse(storedData) || [];
+      renderTable();
+    });
+
+    document.getElementById('profileImage').addEventListener('change', function () {
+      if (this.files && this.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          profilePreview.setAttribute('src', e.target.result);
+        };
+        reader.readAsDataURL(this.files[0]);
+      }
+    });
+
+    Upload.addEventListener('click', function () {
+      if (FoodName.value.trim() === "" || Instructions.value.trim() === "" || profileImage.value.trim() === "") {
+        alert("Please fill all the fields");
+        return;
+      }
+
+      const food = {
+        name: FoodName.value,
+        instructions: Instructions.value,
+        imageSrc: profilePreview.src || "No Image Selected",
+      };
+
+      foods.push(food);
+      saveToLocalStorage();
+      renderTable();
+
+      clearForm();
+    });
+
+    function saveToLocalStorage() {
+      localStorage.setItem('foods', JSON.stringify(foods));
+    }
+
+    function deleteFood(index) {
+      if(confirm("Are you sure you want to delete this food?")){
+        foods.splice(index, 1);
+        saveToLocalStorage();
+        renderTable();
+      } else {
+        return;
+      }
+      
+    }
+
+    function editFood(index) {
+      editingIndex = index; 
+      edit.style.display = "inline-block";
+      Upload.style.display = "none";
+
+      const food = foods[index];
+      FoodName.value = food.name;
+      Instructions.value = food.instructions;
+      selectcountry.value = food.dish;
+      profilePreview.src = food.imageSrc;
+    }
+
+    edit.addEventListener('click', function () {
+      if (editingIndex === -1) return; 
+
+      const updatedFood = {
+        name: FoodName.value,
+        instructions: Instructions.value,
+        dish: selectcountry.value || "Not Selected",
+        imageSrc: profilePreview.src || "No Image Selected",
+      };
+
+      foods[editingIndex] = updatedFood; 
+      saveToLocalStorage();
+      renderTable();
+
+      clearForm();
+      editingIndex = -1;
+      edit.style.display = "none";
+      Upload.style.display = "inline-block";
+    });
+
+    function clearForm() {
+      FoodName.value = "";
+      Instructions.value = "";
+      selectcountry.value = "";
+      profileImage.value = "";
+      profilePreview.src = "";
+    }
+
+  </script>
+
+</body>
+
+</html>
